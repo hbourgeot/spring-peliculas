@@ -1,18 +1,9 @@
 package com.hbourgeot.peliculas.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "peliculas")
@@ -25,11 +16,12 @@ public class Peliculas implements Serializable {
   private String nombre;
 
   @Column(name = "fecha_estreno")
-  @Temporal(TemporalType.DATE)
-  private Date fechaEstreno;
+  private String fechaEstreno;
+
+  @OneToOne
   private Genero genero;
 
-  @OneToMany
+  @ManyToMany
   private List<Actor> protagonistas;
 
   public void setId(Long id) {
@@ -40,7 +32,7 @@ public class Peliculas implements Serializable {
     this.nombre = nombre;
   }
 
-  public void setFechaEstreno(Date fechaEstreno) {
+  public void setFechaEstreno(String fechaEstreno) {
     this.fechaEstreno = fechaEstreno;
   }
 
@@ -60,7 +52,7 @@ public class Peliculas implements Serializable {
     return nombre;
   }
 
-  public Date getFechaEstreno() {
+  public String getFechaEstreno() {
     return fechaEstreno;
   }
 
